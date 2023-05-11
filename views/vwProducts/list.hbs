@@ -1,0 +1,39 @@
+<div class="card">
+    <div class="card-header">
+        <h4>Products</h4>
+    </div>
+    {{#if this.empty}}
+    <div class="card-body">
+        <p class="card-text">Không có dữ liệu.</p>
+    </div>
+    {{else}}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center">ProID</th>
+                <th scope="col">ProName</th>
+                <th scope="col">SL</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each this.product}}
+            <tr>
+                <th scope="row" class="text-center">{{ProID}}</th>
+                <td>{{ProName}}</td>
+                <td>{{SL}}</td>
+                <td class="text-right">
+                    <a class="btn btn-primary btn-sm" href="javescript" role="button">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                    <a class="btn btn-danger btn-sm" href="javescript" role="button">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{/if}}
+
+</div>
