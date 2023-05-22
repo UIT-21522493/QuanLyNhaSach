@@ -1,9 +1,9 @@
 const db = require('./db');
 
-//const idFieldName = 'Id';
+const idFieldName = 'Id';
 
 class mainPageModel {
-    async count(tbName, idFieldName) {
+    async count(tbName) {
         const condition = "";
         const res = await db.count(tbName, idFieldName, condition);
         return res;
@@ -15,13 +15,13 @@ class mainPageModel {
         return res;
     }
 
-    async getPrice(sachId, idFieldName) {
+    async getPrice(sachId) {
         const condition = "";
         const res = await db.get('Sach', idFieldName, sachId);
         return res;
     }
 
-    async load(tbName, idFieldName) {
+    async load(tbName) {
         const res = await db.load(tbName, idFieldName);
         return res;
     }
