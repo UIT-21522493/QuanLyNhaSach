@@ -11,8 +11,13 @@ require('./middlewares/session')(app);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+//cookie-parser
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
-app.use(express.static(path.join(__dirname, 'public')));
+require('./middlewares/passport')(app);
+
+app.use(express.static(path.join(__dirname, "../", 'public')));
 app.use(express.static(path.join(__dirname, 'images')));
 
 app.use('/', require('./controllers/home.C'));

@@ -1,10 +1,14 @@
 const exphds = require('express-handlebars');
 const numeral = require('numeral');
+const path = require("path");
+
+
 
 module.exports = app => {
   const hbs = exphds.create({
     defaultLayout: false,
     extname: 'hbs' ,
+
     helpers: {
       ifStr(s1, s2, options) {
         if (s1 === s2) {
