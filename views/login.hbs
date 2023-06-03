@@ -14,8 +14,8 @@
     <!-- Upload CSS-->
     <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
     <style>
-        body {
-            background-image: url(/background.png);
+         body {
+            background-image: url(/new-background.png);
             background-position: center;
             background-repeat: none;
             background-attachment: fixed;
@@ -25,16 +25,17 @@
         }
 
         .container {
-            width: 65%;
-            height: 75%;
-            background-color: white;
+            width: 45%;
+            height: 60%;
+            background-color: rgba(255,255,255,0.1);
             border-radius: 20px;
-            box-shadow: 4px 4px #c8c8c6;
+            display: flex;
             /* Center vertically and horizontally */
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+
         }
 
         .container-child {
@@ -55,23 +56,24 @@
         }
 
         .content {
-            width: 55%;
+            width: 58%;
         }
         
         .content .text {
-            font-size: 2rem;
+            font-size: 40px;
             font-weight: bold;
-            padding: 3.5rem 0;
+            padding: 3rem 0 2rem;
+
         }
 
         .content .form{
-            width: 75%;
-            margin-bottom: 0.5rem;
+            width: 80%;
+            margin-bottom: 0.2rem;
         }
 
         .form-group{
             width: 100%;
-            height: 4.5rem;
+            height: 4rem;
             margin-bottom: 1.5rem;
             padding: 0;
             position: relative;
@@ -79,27 +81,35 @@
 
         .form-group img {
             position: absolute;
-            top: 1rem;
-            left: 0.25rem;
+            top: 15px;
+            left: 17px;
+            color: #fff;
         }
 
         .image {
             width: 2rem;
             padding: 0.5rem;
             min-width: 2.5rem;
+            color: #fff;
         }
 
         .input-field {
             width: 100%;
             height: 100%;
             padding: 0 4rem;
-            border-radius: 50px;
-            border: 2px solid #BDE6F1;
-            outline: none;
-        }
+            border-radius: 30px;
+            border: none;
+            color: #FEFEFE;
 
+            outline: none;
+            background-color: rgba(255,255,255,0.2);
+        }
+        ::-webkit-input-placeholder
+        {
+            color: white;
+        }
         .input-field:hover{
-            border-color: #C6F0FA;
+            border-color: rgba(255,255,255,0.1);
         }
 
         .input-field:focus{
@@ -108,11 +118,11 @@
 
         .form-group .label{
             position: absolute;
-            left: 3rem;
+            left: rem;
             top: 1.5rem;
             font-size: 1rem;
             padding: 0 0.5rem;
-            background-color: white;
+            background-color: rgba(255,255,255,0.1);
             opacity: 0.8;
             transition: 
                 top 200ms ease-in,
@@ -129,21 +139,20 @@
         }
 
         .submit{
-            display: block;
-            padding: 0.3rem 1.5rem;
-            background-color: #92D2C3;
-            color: #FEFEFE;
-            border-radius: 1rem;
             border: none;
+            border-radius: 30px;
+            font-size: 15px;
+            height: 45px;
             outline: none;
-            font-size: 1.2rem;
-            font-weight: 600;
+            width: 100%;
+            color: black;
+            background: rgba(255,255,255,0.7);
             cursor: pointer;
-            transition: background-color 200ms ease-in;
+            transition: .3s ;
         }
 
         .submit:hover{
-            background-color: #73ccb7;
+            box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.2);
         }
 
         .input-field:focus + .label{
@@ -157,7 +166,7 @@
             top: -1rem; 
             font-size: 1.1rem;
             opacity: 1;
-            color: #67cae3;
+            color: rgba(255,255,255,0.1);
         }
 
         .remember{
@@ -167,6 +176,7 @@
         
         .forgotPass{
             text-decoration: none;
+            color: #fff;
         }
 
         .checkName, .checkPass{
@@ -192,15 +202,14 @@
                 
                 <form method="post" class="form align-self-center">
                     <div class="form-group">
-                        <img src="/identity.png" class="image">
-                        <input type="text" id="username" name="username" class="input-field" placeholder=" " autocomplete="off">
-                        <label for="username" class="label">Tài khoản</label>
+                        <img src="/user.png" class="image">
+                        <input type="text" id="username" name="username" class="input-field" placeholder="Tài khoản" autocomplete="off">
                         <div class="checkName"></div>
                     </div>
                     <div class="form-group">
                         <img src="/lock.png" class="image">
-                        <input type="password" id="password" name="password" class="input-field" placeholder=" ">
-                        <label for="password" class="label">Mật khẩu</label>
+                        <input type="password" id="password" name="password" class="input-field" placeholder="Mật khẩu">
+
                         <i class="far fa-eye" id="togglePassword"></i>
                         <div class="checkPass"></div>
                     </div>
@@ -216,6 +225,7 @@
                     <div class="d-flex flex-row justify-content-center">
                         <input type="submit" formaction="/login" value="Đăng nhập" class="submit align-self-center mt-4">
                     </div>
+                    
                 </form>
                 
                 {{#if error}}
