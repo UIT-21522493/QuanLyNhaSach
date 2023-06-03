@@ -17,7 +17,7 @@ app.use(cookieParser());
 
 require('./middlewares/passport')(app);
 
-app.use(express.static(path.join(__dirname, "../", 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'images')));
 
 app.use('/', require('./controllers/home.C'));

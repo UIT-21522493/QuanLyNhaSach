@@ -1,209 +1,499 @@
-CREATE TABLE KhachHang
-(
-	Id INTEGER NOT NULL,
-	HoTen VARCHAR(255) NOT NULL,
-	DiaChi VARCHAR(255),
-	DienThoai INTEGER,
-	Email VARCHAR(255),
-	TienNo MONEY,
-	CONSTRAINT PK_KH PRIMARY KEY (Id)
-)
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
 
-CREATE TABLE Sach
-(
-	Id INTEGER NOT NULL,
-	TenSach VARCHAR(255),
-	TheLoai VARCHAR(255),
-	TacGia VARCHAR(255),
-	SoLuongTon INTEGER,
-	DonGiaBan FLOAT,
-	DonGiaNhap FLOAT,
-	CONSTRAINT PK_Sach PRIMARY KEY (Id)
-)
+SET default_tablespace = '';
 
-CREATE TABLE PhieuThuTIen
-(
-	Id INTEGER NOT NULL,
-	IdKhachHang INTEGER NOT NULL,
-	NgayThuTien DATE,
-	SoTienThu MONEY,
-	CONSTRAINT PK_PhieuThuTIen PRIMARY KEY (Id)
-)
-
-CREATE TABLE HoaDon
-(
-	Id INTEGER NOT NULL PRIMARY KEY,
-	NgayLap DATE NOT NULL,
-	TongTien MONEY NOT NULL
-)	
-
-CREATE TABLE ChiTietHoaDon
-(
-	Id INTEGER NOT NULL,
-	IdKhachHang INTEGER NOT NULL,
-	IdSach INTEGER NOT NULL,
-	SoLuongBan INTEGER,
-	DonGiaBan MONEY,
-	ThanhTien MONEY,
-	TienTra MONEY,
-	CONSTRAINT PK_CTHD PRIMARY KEY (Id,IdKhachHang,IdSach)
-)
-
-CREATE TABLE PhieuNhapSach
-(
-	Id INTEGER NOT NULL PRIMARY KEY,
-	NgayNhap DATE
-)
-
-CREATE TABLE ChiTietPhieuNhap
-(
-	Id INTEGER  NOT NULL,
-	IdSach INTEGER NOT NULL,
-	SoLuongNhap INTEGER NOT NULL,
-	DonGiaNhap MONEY NOT NULL,
-	CONSTRAINT PK_ChiTietPhieuNhap PRIMARY KEY (Id,IdSach)
-)
-
-CREATE TABLE BAOCAOTON
-(
-	Thang INTEGER NOT NULL,
-	Nam INTEGER NOT NULL,
-	MaSach INTEGER NOT NULL,
-	TonDau MONEY,
-	PhatSinh MONEY,
-	TonCuoi MONEY,
-	CONSTRAINT PK_BAOCAOTON PRIMARY KEY (Thang,Nam,MaSach)
-)
-CREATE TABLE BAOCAOCONGNO
-(
-	Thang INTEGER NOT NULL,
-	Nam INTEGER NOT NULL,
-	MaKH INTEGER NOT NULL,
-	NoDau MONEY,
-	PhatSinh MONEY,
-	NoCuoi MONEY,
-	CONSTRAINT PK_BAOCAOCONGNO PRIMARY KEY (Thang,Nam,MaKH)
-)
-CREATE TABLE QuyDinh
-(
-	Id INTEGER NOT NULL,
-	TenQuyDinh VARCHAR(255),
-	GiaTri INTEGER,
-	KieuDuLieu VARCHAR(255),
-	TinhTrangSuDung VARCHAR(255),
-	CONSTRAINT PK_QUYDINH PRIMARY KEY (Id)
-)
-
-CREATE TABLE TaiKhoan
-(
-	TenDangNhap VARCHAR(255),
-	MatKhau VARCHAR(255)
-)
-
-INSERT INTO KhachHang VALUES (1, 'Huỳnh Chí Phong', '792/4 đường Kha Vạn Cân, phường Linh Đông, quận Thủ Đức, tp Hồ Chí Minh', 01203875665, 'phong12345@gmail.com', 120000);
-INSERT INTO KhachHang VALUES (2, 'Võ Hoài Nam', '296 Tô Ngọc Vân, phường Linh Đông, quận Thủ Đức, tp Hồ Chí Minh', 0909928956, 'namksqt@gmail.com', 0);
-INSERT INTO KhachHang VALUES (3, 'Tô Chính Tín', 'ký túc xá khu A, phường Linh Trung, quận Thủ Đức, tp Hồ Chí Minh', 01694254261, 'tinchiiu@gmail.com', 200000);
-INSERT INTO KhachHang VALUES (4, 'Lãnh Thừa Phong', 'ký túc xá khu A, phường Linh Trung, quận Thủ Đức, tp Hồ Chí Minh', 0946330245, 'thuaphong@gmail.com', 300000);
-INSERT INTO KhachHang VALUES (5, 'Lý Thất Dạ', '7b/5 Thành Thái, quận 10, tp Hồ Chí Minh', 0369001344, 'nhedacatin@gmail.com', 0);
-INSERT INTO KhachHang VALUES (6, 'Mai Thị Lan Chi', '10 Nguyễn Thị Minh Khai, quận 1, tp Hồ Chí Minh', 0905880148, 'chidepgai@gmail.com', 0);
-INSERT INTO KhachHang VALUES (7, 'Nguyễn Hoàng Nam', 'Tòa nhà Biteco, quận 1, tp Hồ Chí Minh', 0977422748, 'namtxqt@gmail.com', 520000);
-INSERT INTO KhachHang VALUES (8, 'Nguyễn Minh Đức', '16 Nguyễn Gia Trí, quận Bình Thạnh, tp Hồ Chí Minh', 0908536542, 'duccuto@gmail.com', 90000);
-INSERT INTO KhachHang VALUES (9, 'Lưu Thị Liên', '24 Khuông Việt, quận Tân Bình, tp Hồ Chí Minh', 0745124524, 'lienha@gmail.com', 50000);
-INSERT INTO KhachHang VALUES (10, 'Nguyễn Trần Trung Đan', '16 Bạch Đằng, quận Tân BÌnh, tp Hồ Chí Minh', 0356206309, 'dantay@gmail.com', 100000);
+SET default_table_access_method = heap;
 
 
-INSERT INTO TheLoai VALUES (1, 'Trinh Thám');
-INSERT INTO TheLoai VALUES (2, 'Kinh dị');
-INSERT INTO TheLoai VALUES (3, 'Sách Giáo Khoa');
-INSERT INTO TheLoai VALUES (4, 'Lãng Mạng');
-INSERT INTO TheLoai VALUES (5, 'Học Trò');
-INSERT INTO TheLoai VALUES (6, 'Thiếu Nhi');
-INSERT INTO TheLoai VALUES (7, 'Thể Thao');
-INSERT INTO TheLoai VALUES (8, 'Hư Cấu');
-INSERT INTO TheLoai VALUES (9, 'Truyện Tranh');
-INSERT INTO TheLoai VALUES (10, 'Ngôn Tình');
-INSERT INTO TheLoai VALUES (11, 'Khoa Học Giả Tưởng');
-INSERT INTO TheLoai VALUES (12, 'Sách Học Ngoại Ngữ');
-INSERT INTO TheLoai VALUES (13, 'Sách Thường Thức - Đời Sống');
-INSERT INTO TheLoai VALUES (14, 'Sách Văn Học - Truyện Ngắn - Tiểu Thuyết');
-INSERT INTO TheLoai VALUES (15, 'Từ Điển');	
+CREATE TABLE public."ChiTietHoaDon" (
+    "SoCTHD" integer NOT NULL,
+    "SoHD" integer NOT NULL,
+    "MaSach" integer NOT NULL,
+    "SoLuong" integer NOT NULL
+);
 
-INSERT INTO Sach VALUES (1, 'Kính Vạn Hoa', 'Học Trò', 'Nguyễn Nhật Ánh', 342, 30000, 20000);
-INSERT INTO Sach VALUES (2, 'Mật mã Da Vinci', 'Trinh Thám', 'Dan Brown', 52, 200000, 100000);
-INSERT INTO Sach VALUES (3, 'Sherlock Holmes', 'Trinh Thám', 'Arthur Conan Doyle', 100, 1000000, 500000);
-INSERT INTO Sach VALUES (4, 'Sự im lặng của bầy cừu', 'Trinh Thám', 'Thomas Harris', 112, 300000, 200000);
-INSERT INTO Sach VALUES (5, 'Tấm Vải Đỏ', 'Kinh dị', 'Hồng Nương Tử', 13, 500000, 200000);
-INSERT INTO Sach VALUES (6, 'Địa Ngục Tầng Thứ 19', 'Kinh dị', 'Sái Tuấn', 50, 300000, 200000);	
-INSERT INTO Sach VALUES (7, 'Người Tìm Xác', 'Học Trò', 'Lạc Lâm Lang', 90, 50000, 20000);
-INSERT INTO Sach VALUES (8, 'Toán 11', 'Sách Giáo Khoa', 'Bộ Giáo dục và Đào tạo', 100, 15000, 10000);
-INSERT INTO Sach VALUES (9, 'Ngữ Văn 12', 'Sách Giáo Khoa', 'Bộ Giáo dục và Đào tạo', 302, 10000, 7000);
-INSERT INTO Sach VALUES (10, 'Tiếng Anh 11', 'Sách Giáo Khoa', 'Bộ Giáo dục và Đào tạo', 200, 15000, 10000);
-INSERT INTO Sach VALUES (11, 'Trà Hoa Nữ', 'Lãng Mạng', 'Alexandre Dumas', 301, 300000, 200000);
-INSERT INTO Sach VALUES (12, 'Gọi Em Bằng Tên Anh', 'Lãng Mạng', 'André Aciman', 222, 30000, 20000);
-INSERT INTO Sach VALUES (13, 'Rừng Nauy', 'Lãng Mạng', 'Haruki Murakami', 190, 300000, 200000);
-INSERT INTO Sach VALUES (14, 'Cho tôi xin một vé đi tuổi thơ', 'Học Trò', 'Nguyễn Nhật Ánh', 342, 300000, 150000);
-INSERT INTO Sach VALUES (15, 'Chiến binh cầu vồng', 'Học Trò', 'Andrea Hirata', 524, 300000, 200000);
-INSERT INTO Sach VALUES (16, 'Năm tháng vội vã', 'Học Trò', 'Nguyễn Nhật Ánh', 195, 300000, 200000);
-INSERT INTO Sach VALUES (17, 'Ubik', 'Khoa Học Giả Tưởng', 'Philip K. Dick', 321, 320000, 260000);
-INSERT INTO Sach VALUES (18, 'Dune', 'Khoa Học Giả Tưởng', 'Frank Herbert', 412, 300000, 200000);
-INSERT INTO Sach VALUES (19, 'Labyrinths', 'Khoa Học Giả Tưởng', 'Jorge Luis Borges', 246, 300000, 200000);
-INSERT INTO Sach VALUES (20, '1984', 'Khoa Học Giả Tưởng', 'George Orwell', 123, 300000, 200000);
+ALTER TABLE public."ChiTietHoaDon" OWNER TO postgres;
 
-INSERT INTO PhieuThuTIen VALUES (1, 1, '2023/1/26', 100000);
-INSERT INTO PhieuThuTIen VALUES (2, 2, '2023/1/26', 300000);
-INSERT INTO PhieuThuTIen VALUES (3, 3, '2023/1/26', 150000);
-INSERT INTO PhieuThuTIen VALUES (4, 1, '2023/2/12', 2000000);
-INSERT INTO PhieuThuTIen VALUES (5, 5, '2023/2/12', 100000);
-INSERT INTO PhieuThuTIen VALUES (6, 7, '2023/2/12', 90000);
-INSERT INTO PhieuThuTIen VALUES (7, 8, '2023/3/6', 80000);
-INSERT INTO PhieuThuTIen VALUES (8, 3, '2023/3/6', 120000);
-INSERT INTO PhieuThuTIen VALUES (9, 2, '2023/3/6', 100000);
-INSERT INTO PhieuThuTIen VALUES (10, 9, '2023/3/26', 200000);
+ALTER TABLE public."ChiTietHoaDon" ALTER COLUMN "SoCTHD" ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public."ChiTietHoaDon_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
 
 
+CREATE TABLE public."ChiTietKhuyenMai" (
+    "MaCTKM" integer NOT NULL,
+    "MaSach" integer NOT NULL,
+    "MaKM" integer NOT NULL
+);
 
-INSERT INTO PhieuNhapSach VALUES (1, '2022/12/20');
-INSERT INTO PhieuNhapSach VALUES (2, '2023/1/2');
-INSERT INTO PhieuNhapSach VALUES (3, '2023/1/15');
-INSERT INTO PhieuNhapSach VALUES (4, '2023/2/2');
-INSERT INTO PhieuNhapSach VALUES (5, '2023/2/15');
+ALTER TABLE public."ChiTietKhuyenMai" OWNER TO postgres;
 
-INSERT INTO ChiTietPhieuNhap VALUES (1, 1, 200, 20000);
-INSERT INTO ChiTietPhieuNhap VALUES (1, 2, 30, 100000);
-INSERT INTO ChiTietPhieuNhap VALUES (1, 3, 50, 500000);
-INSERT INTO ChiTietPhieuNhap VALUES (2, 4, 50, 200000);
-INSERT INTO ChiTietPhieuNhap VALUES (2, 8, 200, 10000);
-INSERT INTO ChiTietPhieuNhap VALUES (3, 1, 50, 20000);
-INSERT INTO ChiTietPhieuNhap VALUES (3, 9, 200, 7000);
-INSERT INTO ChiTietPhieuNhap VALUES (4, 18, 100, 200000);
-INSERT INTO ChiTietPhieuNhap VALUES (5, 19, 100, 200000);
-
-INSERT INTO BAOCAOTON VALUES (3, 2023, 1, 50, 20, 70);
-INSERT INTO BAOCAOTON VALUES (2, 2023, 4, 50, 20, 70);
-
-INSERT INTO BAOCAOCONGNO VALUES (2, 2023, 1, 200, 0, 200);
-
-INSERT INTO QUYDINH VALUES (150, 300, 20000, 105, 100000);
-
-INSERT INTO TaiKhoan VALUES ('ron2866', '123456')
+ALTER TABLE public."ChiTietKhuyenMai" ALTER COLUMN "MaCTKM" ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public."ChiTietKhuyenMai_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
 
 
-ALTER TABLE ChiTietHoaDon ADD 
-CONSTRAINT FK_CTHD_HOADON FOREIGN KEY (Id) REFERENCES HoaDon(Id)
-ALTER TABLE ChiTietHoaDon ADD 
-CONSTRAINT FK_CTHD_KhachHang FOREIGN KEY (IdKhachHang) REFERENCES KhachHang(Id)
-ALTER TABLE ChiTietHoaDon ADD 
-CONSTRAINT FK_CTHD_Sach FOREIGN KEY (IdSach) REFERENCES Sach(Id)
+CREATE TABLE public."ChiTietPhieuNhap" (
+    "MaCTPN" integer NOT NULL,
+    "MaPNS" integer NOT NULL,
+    "MaSach" integer NOT NULL,
+    "SoLuong" integer NOT NULL
+);
 
-ALTER TABLE ChiTietPhieuNhap ADD 
-CONSTRAINT FK_ChiTietPhieuNhap_PhieuNhapSach FOREIGN KEY (Id) REFERENCES PhieuNhapSach(Id)
-ALTER TABLE ChiTietPhieuNhap ADD 
-CONSTRAINT FK_ChiTietPhieuNhap_Sach FOREIGN KEY (IdSach) REFERENCES Sach(Id)
+ALTER TABLE public."ChiTietPhieuNhap" OWNER TO postgres;
 
-ALTER TABLE PhieuThuTIen ADD 
-CONSTRAINT FK_PhieuThuTIen_KHACHANG FOREIGN KEY (IdKhachHang) REFERENCES KhachHang(Id)
+ALTER TABLE public."ChiTietPhieuNhap" ALTER COLUMN "MaCTPN" ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public."ChiTietPhieuNhap_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
 
-ALTER TABLE BAOCAOTON ADD 
-CONSTRAINT FK_BAOCAOTON_Sach FOREIGN KEY (MaSach) REFERENCES Sach(MaSach)
 
-ALTER TABLE BAOCAOCONGNO ADD CONSTRAINT FK_MaKH_BAOCAOCONGNO_KhachHang FOREIGN KEY (MaKH) REFERENCES KhachHang(MaKH)
+CREATE TABLE public."HoaDon" (
+    "SoHD" integer NOT NULL,
+    "MaKH" integer NOT NULL,
+    "NgayLap" date NOT NULL
+);
+
+ALTER TABLE public."HoaDon" OWNER TO postgres;
+
+ALTER TABLE public."HoaDon" ALTER COLUMN "SoHD" ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public."HoaDon_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+CREATE TABLE public."KhachHang" (
+    "MaKH" integer NOT NULL,
+    "HoTen" character varying(255) NOT NULL,
+    "DienThoai" character varying(255) NOT NULL,
+    "DiaChi" character varying(255) NOT NULL,
+    "Email" character varying(255) NOT NULL,
+    "TienNo" integer NOT NULL
+);
+
+ALTER TABLE public."KhachHang" OWNER TO postgres;
+
+ALTER TABLE public."KhachHang" ALTER COLUMN "MaKH" ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public."KhachHang_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+CREATE TABLE public."KhuyenMai" (
+    "MaKM" integer NOT NULL,
+    "LoaiKhuyenMai" integer NOT NULL,
+    "LinkAnhKhuyenMai" character varying(255) NOT NULL,
+    "PhanTramGiamGia" integer NOT NULL
+);
+
+ALTER TABLE public."KhuyenMai" OWNER TO postgres;
+
+ALTER TABLE public."KhuyenMai" ALTER COLUMN "MaKM" ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public."KhuyenMai_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+CREATE TABLE public."PhieuGhiNo" (
+    "MaPGN" integer NOT NULL,
+    "MaKH" integer NOT NULL,
+    "NgayLap" date NOT NULL,
+    "SoTienNo" integer NOT NULL
+);
+
+ALTER TABLE public."PhieuGhiNo" OWNER TO postgres;
+
+ALTER TABLE public."PhieuGhiNo" ALTER COLUMN "MaPGN" ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public."PhieuGhiNo_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+CREATE TABLE public."PhieuNhapSach" (
+    "MaPNS" integer NOT NULL,
+    "NgayNhap" date NOT NULL
+);
+
+ALTER TABLE public."PhieuNhapSach" OWNER TO postgres;
+
+ALTER TABLE public."PhieuNhapSach" ALTER COLUMN "MaPNS" ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public."PhieuNhapSach_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+CREATE TABLE public."PhieuThuTien" (
+    "MaPTT" integer NOT NULL,
+    "MaKH" integer NOT NULL,
+    "NgayThuTien" date NOT NULL,
+    "SoTienThu" integer NOT NULL
+);
+
+ALTER TABLE public."PhieuThuTien" OWNER TO postgres;
+
+ALTER TABLE public."PhieuThuTien" ALTER COLUMN "MaPTT" ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public."PhieuThuTien_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+CREATE TABLE public."QuyDinh" (
+    "MaQD" integer NOT NULL,
+    "TenQuyDinh" character varying(255) NOT NULL,
+    "GiaTri" integer NOT NULL,
+    "KieuDuLieu" character varying(255) NOT NULL,
+    "TinhTrangSuDung" boolean NOT NULL
+);
+
+ALTER TABLE public."QuyDinh" OWNER TO postgres;
+
+ALTER TABLE public."QuyDinh" ALTER COLUMN "MaQD" ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public."QuyDinh_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+CREATE TABLE public."Sach" (
+    "MaSach" integer NOT NULL,
+    "TenSach" character varying(255) NOT NULL,
+    "TheLoai" character varying(255) NOT NULL,
+    "TacGia" character varying(255) NOT NULL,
+    "DonGia" integer NOT NULL,
+    "LuongTon" integer NOT NULL
+);
+
+ALTER TABLE public."Sach" OWNER TO postgres;
+
+ALTER TABLE public."Sach" ALTER COLUMN "MaSach" ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public."Sach_Id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+CREATE TABLE public."TaiKhoan" (
+    "TenDangNhap" character varying NOT NULL,
+    "MatKhau" character varying NOT NULL
+);
+
+ALTER TABLE public."TaiKhoan" OWNER TO postgres;
+
+
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (1, 1, 3, 2);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (2, 1, 4, 1);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (3, 1, 1, 1);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (4, 2, 7, 1);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (5, 3, 6, 3);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (6, 4, 9, 1);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (7, 4, 10, 2);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (8, 5, 1, 1);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (9, 6, 12, 2);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (10, 7, 14, 1);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (11, 7, 11, 2);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (12, 8, 7, 1);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (13, 9, 9, 2);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (14, 9, 15, 3);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (15, 10, 3, 1);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (16, 11, 6, 2);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (17, 12, 5, 1);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (18, 13, 4, 1);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (19, 14, 7, 2);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (20, 14, 5, 1);
+INSERT INTO public."ChiTietHoaDon" ("SoCTHD", "SoHD", "MaSach", "SoLuong") VALUES (21, 15, 1, 1);
+
+
+INSERT INTO public."ChiTietKhuyenMai" ("MaCTKM", "MaSach", "MaKM") VALUES (1, 1, 1);
+INSERT INTO public."ChiTietKhuyenMai" ("MaCTKM", "MaSach", "MaKM") VALUES (2, 1, 1);
+INSERT INTO public."ChiTietKhuyenMai" ("MaCTKM", "MaSach", "MaKM") VALUES (3, 2, 1);
+INSERT INTO public."ChiTietKhuyenMai" ("MaCTKM", "MaSach", "MaKM") VALUES (4, 4, 1);
+INSERT INTO public."ChiTietKhuyenMai" ("MaCTKM", "MaSach", "MaKM") VALUES (5, 5, 2);
+INSERT INTO public."ChiTietKhuyenMai" ("MaCTKM", "MaSach", "MaKM") VALUES (6, 6, 2);
+INSERT INTO public."ChiTietKhuyenMai" ("MaCTKM", "MaSach", "MaKM") VALUES (7, 10, 2);
+INSERT INTO public."ChiTietKhuyenMai" ("MaCTKM", "MaSach", "MaKM") VALUES (8, 12, 2);
+INSERT INTO public."ChiTietKhuyenMai" ("MaCTKM", "MaSach", "MaKM") VALUES (9, 11, 2);
+
+
+INSERT INTO public."ChiTietPhieuNhap" ("MaCTPN", "MaPNS", "MaSach", "SoLuong") VALUES (3, 2, 1, 300);
+INSERT INTO public."ChiTietPhieuNhap" ("MaCTPN", "MaPNS", "MaSach", "SoLuong") VALUES (8, 5, 6, 150);
+INSERT INTO public."ChiTietPhieuNhap" ("MaCTPN", "MaPNS", "MaSach", "SoLuong") VALUES (12, 8, 9, 200);
+INSERT INTO public."ChiTietPhieuNhap" ("MaCTPN", "MaPNS", "MaSach", "SoLuong") VALUES (1, 1, 1, 150);
+INSERT INTO public."ChiTietPhieuNhap" ("MaCTPN", "MaPNS", "MaSach", "SoLuong") VALUES (2, 1, 2, 200);
+INSERT INTO public."ChiTietPhieuNhap" ("MaCTPN", "MaPNS", "MaSach", "SoLuong") VALUES (4, 2, 2, 300);
+INSERT INTO public."ChiTietPhieuNhap" ("MaCTPN", "MaPNS", "MaSach", "SoLuong") VALUES (6, 3, 3, 160);
+INSERT INTO public."ChiTietPhieuNhap" ("MaCTPN", "MaPNS", "MaSach", "SoLuong") VALUES (7, 4, 5, 250);
+INSERT INTO public."ChiTietPhieuNhap" ("MaCTPN", "MaPNS", "MaSach", "SoLuong") VALUES (9, 6, 12, 200);
+INSERT INTO public."ChiTietPhieuNhap" ("MaCTPN", "MaPNS", "MaSach", "SoLuong") VALUES (10, 6, 11, 220);
+INSERT INTO public."ChiTietPhieuNhap" ("MaCTPN", "MaPNS", "MaSach", "SoLuong") VALUES (11, 7, 10, 240);
+INSERT INTO public."ChiTietPhieuNhap" ("MaCTPN", "MaPNS", "MaSach", "SoLuong") VALUES (13, 9, 14, 200);
+INSERT INTO public."ChiTietPhieuNhap" ("MaCTPN", "MaPNS", "MaSach", "SoLuong") VALUES (14, 10, 15, 250);
+INSERT INTO public."ChiTietPhieuNhap" ("MaCTPN", "MaPNS", "MaSach", "SoLuong") VALUES (15, 10, 4, 150);
+
+
+INSERT INTO public."HoaDon" ("SoHD", "MaKH", "NgayLap") VALUES (1, 1, '2022-05-22');
+INSERT INTO public."HoaDon" ("SoHD", "MaKH", "NgayLap") VALUES (2, 2, '2022-05-19');
+INSERT INTO public."HoaDon" ("SoHD", "MaKH", "NgayLap") VALUES (3, 3, '2022-05-22');
+INSERT INTO public."HoaDon" ("SoHD", "MaKH", "NgayLap") VALUES (4, 4, '2022-05-31');
+INSERT INTO public."HoaDon" ("SoHD", "MaKH", "NgayLap") VALUES (5, 5, '2022-06-01');
+INSERT INTO public."HoaDon" ("SoHD", "MaKH", "NgayLap") VALUES (6, 6, '2022-06-04');
+INSERT INTO public."HoaDon" ("SoHD", "MaKH", "NgayLap") VALUES (7, 7, '2022-06-04');
+INSERT INTO public."HoaDon" ("SoHD", "MaKH", "NgayLap") VALUES (8, 8, '2022-06-05');
+INSERT INTO public."HoaDon" ("SoHD", "MaKH", "NgayLap") VALUES (9, 9, '2022-06-06');
+INSERT INTO public."HoaDon" ("SoHD", "MaKH", "NgayLap") VALUES (10, 10, '2022-06-08');
+INSERT INTO public."HoaDon" ("SoHD", "MaKH", "NgayLap") VALUES (11, 11, '2022-06-09');
+INSERT INTO public."HoaDon" ("SoHD", "MaKH", "NgayLap") VALUES (12, 12, '2022-06-10');
+INSERT INTO public."HoaDon" ("SoHD", "MaKH", "NgayLap") VALUES (13, 13, '2022-06-12');
+INSERT INTO public."HoaDon" ("SoHD", "MaKH", "NgayLap") VALUES (14, 14, '2022-06-12');
+INSERT INTO public."HoaDon" ("SoHD", "MaKH", "NgayLap") VALUES (15, 15, '2022-06-12');
+
+
+INSERT INTO public."KhachHang" ("MaKH", "HoTen", "DienThoai", "DiaChi", "Email", "TienNo") VALUES (4, 'Dương Hồng An
+', '0320949638', '07, Ấp 1, Ấp Tòng Sương, Huyện Ông Thuần Thương, Khánh Hòa', 'ninhvcat@gmail.com', 140000);
+INSERT INTO public."KhachHang" ("MaKH", "HoTen", "DienThoai", "DiaChi", "Email", "TienNo") VALUES (13, 'Vương Châu Thảo ', '0484085940', '27 Phố Biện Kim Thảo, Xã 95, Quận Thủ Đức, Hồ Chí Minh', 'chauthao@gmail.com', 0);
+INSERT INTO public."KhachHang" ("MaKH", "HoTen", "DienThoai", "DiaChi", "Email", "TienNo") VALUES (14, 'Phạm Tiên Ánh', '0396994092', '645 Phố Văn Tụ Dao, Xã Trọng Di, Huyện Uyển Tuyến, Phú Thọ', 'tienananh@gmail.com', 140000);
+INSERT INTO public."KhachHang" ("MaKH", "HoTen", "DienThoai", "DiaChi", "Email", "TienNo") VALUES (1, 'Phạm Tấn Mạnh ', '01661184908', '123 Nguyễn Văn Cừ, Quận 5, Hồ Chí Minh', 'manhpam@gmail.com', 0);
+INSERT INTO public."KhachHang" ("MaKH", "HoTen", "DienThoai", "DiaChi", "Email", "TienNo") VALUES (3, 'Nguyễn Thái Xuân', '0987761234', 'Kí túc xá khu A, ĐHQG HCM', 'nvc@gmail.com', 0);
+INSERT INTO public."KhachHang" ("MaKH", "HoTen", "DienThoai", "DiaChi", "Email", "TienNo") VALUES (2, 'Nguyễn Hiếu Công', '0981237654', 'Kí túc xá khu B, ĐHQG HCM', 'tvb@gmail.com', 200000);
+INSERT INTO public."KhachHang" ("MaKH", "HoTen", "DienThoai", "DiaChi", "Email", "TienNo") VALUES (5, 'Nguyễn Cường Khôi', '0162589724', '60 Phố Phan Lai Bảo, Phường Văn Tân Ca, Huyện Nhậm Ý, Long An', 'dotty@gmail.com', 0);
+INSERT INTO public."KhachHang" ("MaKH", "HoTen", "DienThoai", "DiaChi", "Email", "TienNo") VALUES (7, 'Hoàng Tùng Khôi ', '0126388369', '69 Phố Phước, Phường Quỳnh Ngôn, Quận 4
+Cần Thơ', 'tungkhoi@gmail.com', 0);
+INSERT INTO public."KhachHang" ("MaKH", "HoTen", "DienThoai", "DiaChi", "Email", "TienNo") VALUES (8, 'Nguyễn Kiều Tràm', '02527255611', '846 Phố Phong, Thôn La Trúc, Quận 5, Hà Nam', 'lap59@gmail.com', 100000);
+INSERT INTO public."KhachHang" ("MaKH", "HoTen", "DienThoai", "DiaChi", "Email", "TienNo") VALUES (9, 'Nguyễn Trúc Cát', '01867428915', '8128 Phố Sơn Nhạn Thắng, Xã Chế Ngôn Đoan, Huyện Kiều Nhâm, Đà Nẵng', 'trucmeomeo@gmail.com', 0);
+INSERT INTO public."KhachHang" ("MaKH", "HoTen", "DienThoai", "DiaChi", "Email", "TienNo") VALUES (10, 'Trương Thị Liên Bảo', '02192693374', '3, Ấp Ma, Phường Sử Ngô, Quận Kỳ Thịnh, Bắc Ninh', 'thully@gmail.com', 120000);
+INSERT INTO public."KhachHang" ("MaKH", "HoTen", "DienThoai", "DiaChi", "Email", "TienNo") VALUES (11, 'Trần Thuỵ Khuê Minh', '0525394278', '9 Phố Giao Lập Yên, Xã 9, Quận Sử Giả, Đà Nẵng', 'khuethao@gmail.com', 0);
+INSERT INTO public."KhachHang" ("MaKH", "HoTen", "DienThoai", "DiaChi", "Email", "TienNo") VALUES (12, 'Nguyễn Phạm Bích Như', '01298041585', '5296 Phố Tiến, Xã Lư, Huyện Tú Tấn, Đà Nẵng', 'bichnhnhu@gmail.com', 150000);
+INSERT INTO public."KhachHang" ("MaKH", "HoTen", "DienThoai", "DiaChi", "Email", "TienNo") VALUES (15, 'Trương Thảo San', '0373477387', '81 Phố Cổ, Ấp Nhữ Dao, Huyện Hiếu, Hà Nội', 'thaoann@gmail.com', 0);
+INSERT INTO public."KhachHang" ("MaKH", "HoTen", "DienThoai", "DiaChi", "Email", "TienNo") VALUES (6, 'Trương Uy Việt', '0166615058', '932, Ấp Nghiêm Pháp, Ấp Ninh Điệp, Huyện 10, Bạc Liêu', 'donggtruc@gmail.com', 120000);
+INSERT INTO public."KhachHang" ("MaKH", "HoTen", "DienThoai", "DiaChi", "Email", "TienNo") VALUES (16, 'Thới Hải Đức', '0353415646', '328 Phan Đình Phùng, Pleiku, Gia Lai', 'Haiduc0147@gmail.com', 0);
+
+
+INSERT INTO public."KhuyenMai" ("MaKM", "LoaiKhuyenMai", "LinkAnhKhuyenMai", "PhanTramGiamGia") VALUES (1, 0, 'KM1.png', 10);
+INSERT INTO public."KhuyenMai" ("MaKM", "LoaiKhuyenMai", "LinkAnhKhuyenMai", "PhanTramGiamGia") VALUES (2, 1, 'KM2.png', 20);
+
+
+INSERT INTO public."PhieuGhiNo" ("MaPGN", "MaKH", "NgayLap", "SoTienNo") VALUES (1, 2, '2022-05-19', 55000);
+INSERT INTO public."PhieuGhiNo" ("MaPGN", "MaKH", "NgayLap", "SoTienNo") VALUES (2, 4, '2022-05-31', 198000);
+INSERT INTO public."PhieuGhiNo" ("MaPGN", "MaKH", "NgayLap", "SoTienNo") VALUES (3, 6, '2022-06-04', 112000);
+INSERT INTO public."PhieuGhiNo" ("MaPGN", "MaKH", "NgayLap", "SoTienNo") VALUES (4, 8, '2022-06-05', 55000);
+INSERT INTO public."PhieuGhiNo" ("MaPGN", "MaKH", "NgayLap", "SoTienNo") VALUES (5, 10, '2022-06-08', 121000);
+INSERT INTO public."PhieuGhiNo" ("MaPGN", "MaKH", "NgayLap", "SoTienNo") VALUES (6, 12, '2022-06-10', 60000);
+INSERT INTO public."PhieuGhiNo" ("MaPGN", "MaKH", "NgayLap", "SoTienNo") VALUES (7, 14, '2022-06-12', 165000);
+
+
+INSERT INTO public."PhieuNhapSach" ("MaPNS", "NgayNhap") VALUES (1, '2022-05-22');
+INSERT INTO public."PhieuNhapSach" ("MaPNS", "NgayNhap") VALUES (2, '2022-06-05');
+INSERT INTO public."PhieuNhapSach" ("MaPNS", "NgayNhap") VALUES (3, '2022-06-06');
+INSERT INTO public."PhieuNhapSach" ("MaPNS", "NgayNhap") VALUES (4, '2022-06-06');
+INSERT INTO public."PhieuNhapSach" ("MaPNS", "NgayNhap") VALUES (5, '2022-06-07');
+INSERT INTO public."PhieuNhapSach" ("MaPNS", "NgayNhap") VALUES (6, '2022-06-08');
+INSERT INTO public."PhieuNhapSach" ("MaPNS", "NgayNhap") VALUES (7, '2022-06-05');
+INSERT INTO public."PhieuNhapSach" ("MaPNS", "NgayNhap") VALUES (8, '2022-06-09');
+INSERT INTO public."PhieuNhapSach" ("MaPNS", "NgayNhap") VALUES (9, '2022-06-09');
+INSERT INTO public."PhieuNhapSach" ("MaPNS", "NgayNhap") VALUES (10, '2022-06-10');
+
+
+INSERT INTO public."PhieuThuTien" ("MaPTT", "MaKH", "NgayThuTien", "SoTienThu") VALUES (1, 2, '2022-05-20', 55000);
+INSERT INTO public."PhieuThuTien" ("MaPTT", "MaKH", "NgayThuTien", "SoTienThu") VALUES (2, 4, '2022-06-01', 198000);
+INSERT INTO public."PhieuThuTien" ("MaPTT", "MaKH", "NgayThuTien", "SoTienThu") VALUES (3, 6, '2022-06-05', 112000);
+INSERT INTO public."PhieuThuTien" ("MaPTT", "MaKH", "NgayThuTien", "SoTienThu") VALUES (4, 8, '2022-06-06', 55000);
+INSERT INTO public."PhieuThuTien" ("MaPTT", "MaKH", "NgayThuTien", "SoTienThu") VALUES (5, 10, '2022-06-09', 100000);
+INSERT INTO public."PhieuThuTien" ("MaPTT", "MaKH", "NgayThuTien", "SoTienThu") VALUES (7, 12, '2022-06-14', 60000);
+INSERT INTO public."PhieuThuTien" ("MaPTT", "MaKH", "NgayThuTien", "SoTienThu") VALUES (8, 14, '2022-06-25', 165000);
+
+
+INSERT INTO public."QuyDinh" ("MaQD", "TenQuyDinh", "GiaTri", "KieuDuLieu", "TinhTrangSuDung") VALUES (1, 'Lượng nhập tối thiểu', 150, 'integer', true);
+INSERT INTO public."QuyDinh" ("MaQD", "TenQuyDinh", "GiaTri", "KieuDuLieu", "TinhTrangSuDung") VALUES (2, 'Số nợ tối đa', 200000, 'integer', true);
+INSERT INTO public."QuyDinh" ("MaQD", "TenQuyDinh", "GiaTri", "KieuDuLieu", "TinhTrangSuDung") VALUES (3, 'Lượng tồn tối thiểu sau khi nhập', 300, 'integer', false);
+INSERT INTO public."QuyDinh" ("MaQD", "TenQuyDinh", "GiaTri", "KieuDuLieu", "TinhTrangSuDung") VALUES (4, 'Lượng tồn tối thiểu sau khi bán', 20, 'integer', true);
+
+
+INSERT INTO public."Sach" ("MaSach", "TenSach", "TheLoai", "TacGia", "DonGia", "LuongTon") VALUES (1, 'Harry Potter và Hòn đá phù thủy', 'Trinh thám', 'Conan Doyle', 78000, 100);
+INSERT INTO public."Sach" ("MaSach", "TenSach", "TheLoai", "TacGia", "DonGia", "LuongTon") VALUES (2, 'Doraemon tập 1', 'Thiếu nhi', 'Fujiko.F.Fujio', 15000, 50);
+INSERT INTO public."Sach" ("MaSach", "TenSach", "TheLoai", "TacGia", "DonGia", "LuongTon") VALUES (4, 'Đắc Nhân Tâm', 'Self-help', 'Dale Carnegie', 90000, 60);
+INSERT INTO public."Sach" ("MaSach", "TenSach", "TheLoai", "TacGia", "DonGia", "LuongTon") VALUES (7, 'Cho tôi xin 1 vé đi tuổi thơ', 'Truyện ngắn', 'Nguyễn Nhật Ánh', 55000, 70);
+INSERT INTO public."Sach" ("MaSach", "TenSach", "TheLoai", "TacGia", "DonGia", "LuongTon") VALUES (9, 'Bạn Đắt Giá Bao Nhiêu?
+', 'Self-help', 'Vãn Tình ', 70000, 34);
+INSERT INTO public."Sach" ("MaSach", "TenSach", "TheLoai", "TacGia", "DonGia", "LuongTon") VALUES (10, 'Bài giảng cuối cùng', 'Tiểu thuyết', 'Randy Pausch & Jeffrey Zaslow', 64000, 53);
+INSERT INTO public."Sach" ("MaSach", "TenSach", "TheLoai", "TacGia", "DonGia", "LuongTon") VALUES (11, 'Lược sử vạn vật', 'Non-fiction', 'Bill Bryson', 125000, 32);
+INSERT INTO public."Sach" ("MaSach", "TenSach", "TheLoai", "TacGia", "DonGia", "LuongTon") VALUES (3, 'Không Gia Đình', 'Tiểu thuyết', 'Hector Malot', 121000, 123);
+INSERT INTO public."Sach" ("MaSach", "TenSach", "TheLoai", "TacGia", "DonGia", "LuongTon") VALUES (5, 'Nhà Giả Kim', 'Tiểu thuyết', 'Paulo Coelho', 60000, 30);
+INSERT INTO public."Sach" ("MaSach", "TenSach", "TheLoai", "TacGia", "DonGia", "LuongTon") VALUES (8, 'Đồi Gió Hú', 'Tiểu thuyết', 'Emily Bronte', 82000, 120);
+INSERT INTO public."Sach" ("MaSach", "TenSach", "TheLoai", "TacGia", "DonGia", "LuongTon") VALUES (12, 'Đi tìm lẽ sống', 'Tâm lý học', 'Viktor Frankl', 56000, 39);
+INSERT INTO public."Sach" ("MaSach", "TenSach", "TheLoai", "TacGia", "DonGia", "LuongTon") VALUES (13, 'Kafka bên bờ biển', 'Tiểu thuyết', 'Haruki Murakami', 77000, 54);
+INSERT INTO public."Sach" ("MaSach", "TenSach", "TheLoai", "TacGia", "DonGia", "LuongTon") VALUES (14, 'Hoàng tử bé', 'Tiểu thuyết', 'Antoine de Saint-Exupéry', 89000, 121);
+INSERT INTO public."Sach" ("MaSach", "TenSach", "TheLoai", "TacGia", "DonGia", "LuongTon") VALUES (15, 'Trăm năm cô đơn', 'Tiểu thuyết', 'Gabriel Garcia Marquez', 213000, 24);
+INSERT INTO public."Sach" ("MaSach", "TenSach", "TheLoai", "TacGia", "DonGia", "LuongTon") VALUES (6, 'Tội Ác Và Hình Phạt', 'Tiểu thuyết', 'Fyodor Dostoevsky', 120000, 120);
+
+
+INSERT INTO public."TaiKhoan" ("TenDangNhap", "MatKhau") VALUES ('admin', '$2a$10$89UOMP4Sp5nQeIReawK6Ku.IlcdoundJt8TOmJTb6EyYgppxRZ.1K');
+
+
+
+SELECT pg_catalog.setval('public."ChiTietHoaDon_Id_seq"', 22, false);
+
+
+SELECT pg_catalog.setval('public."ChiTietKhuyenMai_Id_seq"', 10, false);
+
+
+SELECT pg_catalog.setval('public."ChiTietPhieuNhap_Id_seq"', 16, false);
+
+
+SELECT pg_catalog.setval('public."HoaDon_Id_seq"', 16, false);
+
+
+SELECT pg_catalog.setval('public."KhachHang_Id_seq"', 16, true);
+
+
+SELECT pg_catalog.setval('public."KhuyenMai_Id_seq"', 3, false);
+
+
+SELECT pg_catalog.setval('public."PhieuGhiNo_Id_seq"', 8, false);
+
+
+SELECT pg_catalog.setval('public."PhieuNhapSach_Id_seq"', 11, false);
+
+
+SELECT pg_catalog.setval('public."PhieuThuTien_Id_seq"', 9, false);
+
+
+SELECT pg_catalog.setval('public."QuyDinh_Id_seq"', 5, false);
+
+
+SELECT pg_catalog.setval('public."Sach_Id_seq"', 16, false);
+
+
+
+ALTER TABLE ONLY public."ChiTietHoaDon"
+    ADD CONSTRAINT "ChiTietHoaDon_pk" PRIMARY KEY ("SoCTHD");
+
+
+ALTER TABLE ONLY public."ChiTietKhuyenMai"
+    ADD CONSTRAINT "ChiTietKhuyenMai_pk" PRIMARY KEY ("MaCTKM");
+
+
+ALTER TABLE ONLY public."ChiTietPhieuNhap"
+    ADD CONSTRAINT "ChiTietPhieuNhap_pk" PRIMARY KEY ("MaCTPN");
+
+
+ALTER TABLE ONLY public."HoaDon"
+    ADD CONSTRAINT "HoaDon_pk" PRIMARY KEY ("SoHD");
+
+
+ALTER TABLE ONLY public."KhachHang"
+    ADD CONSTRAINT "KhachHang_pk" PRIMARY KEY ("MaKH");
+
+
+ALTER TABLE ONLY public."KhuyenMai"
+    ADD CONSTRAINT "KhuyenMai_pk" PRIMARY KEY ("MaKM");
+
+
+ALTER TABLE ONLY public."PhieuGhiNo"
+    ADD CONSTRAINT "PhieuGhiNo_pk" PRIMARY KEY ("MaPGN");
+
+
+ALTER TABLE ONLY public."PhieuNhapSach"
+    ADD CONSTRAINT "PhieuNhapSach_pk" PRIMARY KEY ("MaPNS");
+
+
+ALTER TABLE ONLY public."PhieuThuTien"
+    ADD CONSTRAINT "PhieuThuTien_pk" PRIMARY KEY ("MaPTT");
+
+
+ALTER TABLE ONLY public."QuyDinh"
+    ADD CONSTRAINT "QuyDinh_pk" PRIMARY KEY ("MaQD");
+
+
+ALTER TABLE ONLY public."Sach"
+    ADD CONSTRAINT "Sach_pk" PRIMARY KEY ("MaSach");
+
+
+ALTER TABLE ONLY public."TaiKhoan"
+    ADD CONSTRAINT "TaiKhoan_pkey" PRIMARY KEY ("TenDangNhap");
+
+
+ALTER TABLE ONLY public."ChiTietHoaDon"
+    ADD CONSTRAINT "ChiTietHoaDon_fk0" FOREIGN KEY ("SoHD") REFERENCES public."HoaDon"("SoHD");
+
+
+ALTER TABLE ONLY public."ChiTietHoaDon"
+    ADD CONSTRAINT "ChiTietHoaDon_fk1" FOREIGN KEY ("MaSach") REFERENCES public."Sach"("MaSach");
+
+
+ALTER TABLE ONLY public."ChiTietKhuyenMai"
+    ADD CONSTRAINT "ChiTietKhuyenMai_fk0" FOREIGN KEY ("MaSach") REFERENCES public."Sach"("MaSach");
+
+
+ALTER TABLE ONLY public."ChiTietKhuyenMai"
+    ADD CONSTRAINT "ChiTietKhuyenMai_fk1" FOREIGN KEY ("MaKM") REFERENCES public."KhuyenMai"("MaKM");
+
+
+ALTER TABLE ONLY public."ChiTietPhieuNhap"
+    ADD CONSTRAINT "ChiTietPhieuNhap_fk0" FOREIGN KEY ("MaPNS") REFERENCES public."PhieuNhapSach"("MaPNS");
+
+
+ALTER TABLE ONLY public."ChiTietPhieuNhap"
+    ADD CONSTRAINT "ChiTietPhieuNhap_fk1" FOREIGN KEY ("MaSach") REFERENCES public."Sach"("MaSach");
+
+
+ALTER TABLE ONLY public."HoaDon"
+    ADD CONSTRAINT "HoaDon_fk0" FOREIGN KEY ("MaKH") REFERENCES public."KhachHang"("MaKH");
+
+
+ALTER TABLE ONLY public."PhieuGhiNo"
+    ADD CONSTRAINT "PhieuGhiNo_fk0" FOREIGN KEY ("MaKH") REFERENCES public."KhachHang"("MaKH");
+
+
+ALTER TABLE ONLY public."PhieuThuTien"
+    ADD CONSTRAINT "PhieuThuTien_fk0" FOREIGN KEY ("MaKH") REFERENCES public."KhachHang"("MaKH");
+

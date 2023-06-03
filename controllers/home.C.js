@@ -1,11 +1,15 @@
 const express = require('express'),
     router = express.Router();
     
-router.use('/home', require('./mainPage.C'));
+ router.get('/', (req, res) => {
+        res.redirect('login');
+    });
 
-router.get('/', (req, res) => {
-    res.render('home');
-});
+router.use('/login', require('./login/login.C'));
+router.use('/forgotPass', require('./login/forgotPass.C'));
+router.use('/changePass', require('./login/changePass.C'));
+
+router.use('/home', require('./mainPage.C'));
 
 router.use('/bookLookUp', require('./bookLookUp.C'));
 

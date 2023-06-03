@@ -6,7 +6,7 @@ const schema = 'public';
 const cn = {
     user: 'postgres',
     host: 'localhost',
-    database: 'Bookstore',
+    database: 'qlns',
     password: '123456',
     port: 5432,
     max: 30,
