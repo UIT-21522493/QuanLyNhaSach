@@ -25,14 +25,14 @@ router.post('/add', async(req, res) => {
         TinhTrangSuDung: (req.body.regulationUse === 'true')
     };
 
-    // console.log(regulation)
+    console.log(regulation)
     await regulationModel.add(regulation);
     
     res.redirect('/regulation');
 });
 
-router.post('/update/:Id', async(req, res) => {
-    const id = parseInt(req.params.Id);
+router.post('/update/:MaQD', async(req, res) => {
+    const id = parseInt(req.params.MaQD);
     let regulation = {
         MaQD: id,
         TenQuyDinh: req.body.regulationNameEdit,
@@ -46,9 +46,9 @@ router.post('/update/:Id', async(req, res) => {
     res.redirect('/regulation');
 })
 
-router.post('/delete/:Id', async(req, res) => {
+router.post('/delete/:MaQD', async(req, res) => {
     const regulation = {
-      MaQD: parseInt(req.params.Id)
+      MaQD: parseInt(req.params.MaQD),
     }
   
     await regulationModel.del(regulation);

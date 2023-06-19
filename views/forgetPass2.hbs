@@ -20,8 +20,6 @@
             background-repeat: none;
             background-attachment: fixed;
             background-size: cover;
-            margin: 0;
-            padding: 0;
         }
 
         .container {
@@ -55,13 +53,13 @@
         }
 
         .content {
-            width: 55%;
+            width: 55%;            
         }
-        
+
         .content .text {
             font-size: 2rem;
             font-weight: bold;
-            padding: 3.5rem 0;
+            padding: 3.5rem 0 2rem;
         }
 
         .content .form{
@@ -120,14 +118,6 @@
                 font-size 200ms ease-in;
         }
 
-        #togglePassword{
-            position: absolute;
-            top: 1.7rem;
-            right: 1rem;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-
         .submit{
             display: block;
             padding: 0.3rem 1.5rem;
@@ -160,26 +150,33 @@
             color: #67cae3;
         }
 
-        .remember{
-            display: inline;
-            padding: 0 0.2rem;
-        }
-        
-        .forgotPass{
-            text-decoration: none;
+        .sub-text{
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            text-align: center;
         }
 
-        .checkName, .checkPass{
+        .checkPass1, .checkPass2{
             position: absolute;
             z-index: 10;
             width: 100%;
         }
 
+        #togglePassword1, #togglePassword2{
+            position: absolute;
+            top: 1.7rem;
+            right: 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
         .danger_icon{
             padding-right: 10px;
         }
+        
     </style>
-    <title>Đăng nhập</title>
+    <title>Quên mật khẩu</title>
 </head>
 <body>
     <div class="container d-flex flex-row align-content-center">
@@ -188,36 +185,28 @@
                 <img src="/logo.png" alt="" class="img-logo align-self-center">
             </div>
             <div class="content d-flex flex-column align-content-center">
-                <h2 class="text align-self-center">Đăng nhập</h2>
-                
+                <h2 class="text align-self-center">Quên Mật Khẩu</h2>
+                <p class="sub-text align-self-center">Nhập mật khẩu mới cho: <span style="color: red;">{{username}}</span> </p>
                 <form method="post" class="form align-self-center">
                     <div class="form-group">
-                        <img src="/identity.png" class="image">
-                        <input type="text" id="username" name="username" class="input-field" placeholder=" " autocomplete="off">
-                        <label for="username" class="label">Tài khoản</label>
-                        <div class="checkName"></div>
-                    </div>
+                        <img src="/lock.png" class="image">
+                        <input type="password" id="password1" name="password1" class="input-field" placeholder=" ">
+                        <label for="password" class="label">Mật khẩu mới</label>
+                        <i class="far fa-eye" id="togglePassword1"></i>
+                        <div class="checkPass1"></div>
+                    </div>          
                     <div class="form-group">
                         <img src="/lock.png" class="image">
-                        <input type="password" id="password" name="password" class="input-field" placeholder=" ">
-                        <label for="password" class="label">Mật khẩu</label>
-                        <i class="far fa-eye" id="togglePassword"></i>
-                        <div class="checkPass"></div>
-                    </div>
-                    <div class="d-flex flex-row justify-content-between">
-                        <div>
-                            <input type="checkbox" name="checkRemember" class="checkBox">
-                            <div class="remember">Remember Me</div>
-                        </div>
-                        <div>
-                            <a href="/forgotPass" class="forgotPass">Forgot Password?</a>
-                        </div>
+                        <input type="password" id="password2" name="password2" class="input-field" placeholder=" ">
+                        <label for="password" class="label">Nhập lại mật khẩu</label>
+                        <i class="far fa-eye" id="togglePassword2"></i>
+                        <div class="checkPass2"></div>
                     </div>
                     <div class="d-flex flex-row justify-content-center">
-                        <input type="submit" formaction="/login" value="Đăng nhập" class="submit align-self-center mt-4">
-                    </div>
+                        <input type="submit" formaction="/changePass" value="Xác nhận" class="submit align-self-center mt-4">
+                    </div>                        
                 </form>
-                
+
                 {{#if error}}
                     <div class="alert alert-danger d-flex align-items-center mt-1 alert-dismissible" role="alert"> 
                         <i class="fas fa-exclamation-triangle danger_icon"></i> 
@@ -235,15 +224,22 @@
 <!-- Popper.JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js"></script>
-
 <script>
     $(document).ready(function(){
-        $('#togglePassword').click(function (e) {
+        $('#togglePassword1').click(function (e) {
             // toggle the type attribute
-            const type = $('#password').attr('type') === 'password' ? 'text' : 'password';
-            $('#password').attr('type', type);
+            const type = $('#password1').attr('type') === 'password' ? 'text' : 'password';
+            $('#password1').attr('type', type);
             // toggle the eye slash icon
-            $('#togglePassword').toggleClass('fa-eye-slash');
+            $('#togglePassword1').toggleClass('fa-eye-slash');
+        });
+
+        $('#togglePassword2').click(function (e) {
+            // toggle the type attribute
+            const type = $('#password2').attr('type') === 'password' ? 'text' : 'password';
+            $('#password2').attr('type', type);
+            // toggle the eye slash icon
+            $('#togglePassword2').toggleClass('fa-eye-slash');
         });
 
         function alert(message, type, element) {
@@ -251,38 +247,40 @@
         }
 
         // Kiêm tra ràng buộc ở đăng nhập
-        var checkName = 0, checkPass = 0;
+        var checkPass1 = 0, checkPass2 = 0;
         $('.submit').prop('disabled', true);
-        $('#username').keyup(function() {
+        $('#password1').keyup(function() {
             if($(this).val().length != 0)
             {
-                checkName = 1;
-                $('.checkName').html('');
-                if(checkName == 1 && checkPass == 1)
+                checkPass1 = 1;
+                $('.checkPass1').html('');
+                if(checkPass1 == 1 && checkPass2 == 1)
                     $('.submit').prop('disabled', false);
             }
             else
             {
-                checkName = 0;
-                alert('Vui lòng điền tên tài khoản!', 'danger', 'Name');
+                checkPass1 = 0;
+                alert('Vui lòng điền mật khẩu mới!', 'danger', 'Pass1');
                 $('.submit').prop('disabled', true);
             }
         });
-        $('#password').keyup(function() {
+        $('#password2').keyup(function() {
             if($(this).val().length != 0)
             {
-                checkPass = 1;
-                $('.checkPass').html('');
-                if(checkName == 1 && checkPass == 1)
+                checkPass2 = 1;
+                $('.checkPass2').html('');
+                if(checkPass1 == 1 && checkPass2 == 1)
                     $('.submit').prop('disabled', false);
             }
             else
             {
-                checkPass = 0;
-                alert('Vui lòng điền mật khẩu!', 'danger', 'Pass');
+                checkPass2 = 0;
+                alert('Vui lòng nhập lại mật khẩu mới!', 'danger', 'Pass2');
                 $('.submit').prop('disabled', true);
-            }   
+            }
         });
+
+        
     });
 
 </script>

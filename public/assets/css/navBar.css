@@ -3,10 +3,9 @@
 */
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
-
 body {
     font-family: 'Mulish', sans-serif;
-    background-image: url(/public/img/background.jpg);
+    background-image: url(/background.png);
     background-position: center;
     background-repeat: none;
     background-attachment: fixed;
@@ -160,9 +159,7 @@ a.download {
     min-height: 100vh;
     transition: all 0.3s;
 }
-
-.fa,
-.fas {
+.fa, .fas{
     width: 30px;
 }
 
@@ -172,14 +169,12 @@ a.download {
 #header {
     display: flex;
 }
-
 #logo-img {
     flex: 1;
     width: 96px;
     height: 96px;
     padding-left: 0.1em;
 }
-
 #logo-title {
     flex: 3;
     color: black;
@@ -188,20 +183,16 @@ a.download {
     padding-top: 0.5em;
     margin-right: 2em;
 }
-
 @media (max-width: 768px) {
     #sidebar {
         margin-left: -250px;
     }
-
     #sidebar.active {
         margin-left: 0;
     }
-
     #sidebarCollapse span {
         display: none;
     }
-
     .wrapper {
         margin-left: 0px;
     }
