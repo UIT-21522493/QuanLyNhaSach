@@ -26,14 +26,14 @@
                             placeholder="Tên sách/Tác giả/Thể loại" aria-label="Search" style="display: inline-block;">
                     </div>
                     <div class="col-md-2">
-                        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Tra cứu">
-
+                        <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" value="Tìm kiếm">
+                        </input>
                     </div>
                 </div>
             </form>
             <div class="row my-5">
                 <div class="col-md-12">
-                    <table class="table table-striped">
+                    <table class="table table-hover border">
                         <thead>
                             <tr>
                                 <th scope="col">Tên sách</th>
@@ -53,12 +53,11 @@
                             <tr>
                                 <th scope="row" id="{{this.Id}}-nameBook">{{this.TenSach}}</th>
                                 <td id="{{this.Id}}-authorBook">{{this.TacGia}}</td>
-                                 <td id="{{this.Id}}-typeBook">{{this.TheLoai}}</td>
+                                <td id="{{this.Id}}-typeBook">{{this.TheLoai}}</td>
                                 <td id="{{this.Id}}-priceBook">{{this.DonGia}}</td>
                                 <td id="{{this.Id}}-amountBook">{{this.LuongTon}}</td>
                             </tr>
                             {{/each}}
-
                             {{/if}}
                         </tbody>
                     </table>
