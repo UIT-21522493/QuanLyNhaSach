@@ -26,14 +26,14 @@
                             placeholder="Tên sách/Tác giả/Thể loại" aria-label="Search" style="display: inline-block;">
                     </div>
                     <div class="col-md-2">
-                        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Tra cứu">
-
+                        <input class="btn btn-outline-primary my-2 my-sm-0" type="submit" value="Tìm kiếm">
+                        </input>
                     </div>
                 </div>
             </form>
             <div class="row my-5">
                 <div class="col-md-12">
-                    <table class="table table-striped">
+                    <table class="table table-hover border">
                         <thead>
                             <tr>
                                 <th scope="col">Tên sách</th>
@@ -54,7 +54,7 @@
                             <tr>
                                 <th scope="row" id="{{this.MaSach}}-nameBook">{{this.TenSach}}</th>
                                 <td id="{{this.MaSach}}-authorBook">{{this.TacGia}}</td>
-                                 <td id="{{this.MaSach}}-typeBook">{{this.TheLoai}}</td>
+                                <td id="{{this.MaSach}}-typeBook">{{this.TheLoai}}</td>
                                 <td id="{{this.MaSach}}-priceBook">{{this.DonGia}}</td>
                                 <td id="{{this.MaSach}}-amountBook">{{this.LuongTon}}</td>
                                 <td>
@@ -84,7 +84,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="form-group mb-2">
-                                    Bạn thực sự muốn xóa <strong>Sách</strong>?
+                                    Bạn thực sự muốn xóa <strong>Sách {{TenSach}}</strong>?
                                     <input type="text" name="Id" value="{{MaSach}}" hidden />
                                 </div>
                             </div>
