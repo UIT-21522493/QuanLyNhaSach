@@ -59,7 +59,7 @@ router.post('/inventory', async (req, res) => {
     const bookImports = await bookImportModel.getByTime(month, year);
     bookImportDetails = [];
     for(let i = 0; i < bookImports.length; i++){
-        const bookImportDetail = await bookImportDetailModel.getById(bookImports[i].MaSach);
+        const bookImportDetail = await bookImportDetailModel.getById(bookImports[i].MaPNS);
         bookImportDetails.push(...bookImportDetail);
     };
     bookImportRes = bookImportDetails.reduce((acc, val) => {
